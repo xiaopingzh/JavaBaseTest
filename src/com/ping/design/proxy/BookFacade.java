@@ -1,4 +1,4 @@
-package com.ping.design;
+package com.ping.design.proxy;
 
 public interface BookFacade {
 	

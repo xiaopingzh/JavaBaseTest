@@ -1,4 +1,4 @@
-package com.ping.design;
+package com.ping.design.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
