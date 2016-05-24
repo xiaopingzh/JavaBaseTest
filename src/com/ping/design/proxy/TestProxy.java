@@ -18,6 +18,8 @@ public class TestProxy {
 	 * @param args
 	 */
 	public  static void main(String[] args){
+		//保存生成的代理类，com.sun.proxy.$Proxy0
+		System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
 		BookProxy bookProxy = new BookProxy();
 		BookFacade bookFacade =  (BookFacade)bookProxy.getProxy(new BookFacadeImpl());
 		bookFacade.addBook();

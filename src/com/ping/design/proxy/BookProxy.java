@@ -40,6 +40,8 @@ public class BookProxy implements InvocationHandler{
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
+		//显示创建的代理类的名称
+		System.out.println(proxy.getClass().getName());
 		/**
 		 * Method.invoke  
 		 * @param target 执行对象，如果执行的是类的静态方法，则单元参数为null
