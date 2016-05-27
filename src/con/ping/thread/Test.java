@@ -1,5 +1,6 @@
 package con.ping.thread;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -14,56 +15,67 @@ import java.util.concurrent.TimeUnit;
  */
 public class Test {
 	
-	private volatile static Test test;
+	
+	private  static Object object;
+	private static volatile Test testInstance;
 	private ThreadPoolExecutor threadPoolExecutor;
-	private static Object lock;
 	
 	private Test(){
 		
 	}
 	
-	
-	private static Test getInstance(int maximumPoolSize,int corePoolSize){
-		if(test == null ){
-			synchronized(lock){
-				if(test == null){
-					test = new Test();
-					test.threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, 3L, 
-							TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>(1024), Executors.defaultThreadFactory());
+	private static Test getTestInstance(){
+		if(testInstance == null){
+			synchronized(object){
+				if(testInstance == null){
+					testInstance = new Test();
+					testInstance.threadPoolExecutor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(), 1000, 3L, TimeUnit.MILLISECONDS,
+							new LinkedBlockingDeque<Runnable>(100),Executors.defaultThreadFactory());
+					testInstance.threadPoolExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
 				}
 			}
 		}
-		return test;
-	}
-	
-	
-	public final static Test getInstance(){
-		return getInstance(100, 32);
+		return testInstance;
 	}
 	
 	/**
-	 * 执行
-	 * @param commend
+	 * 
+	 * @return
 	 */
-	public void executor(Runnable commend){
-		this.threadPoolExecutor.execute(commend);
+	public Test getInstance(){
+		return getTestInstance();
 	}
 	
 	/**
-	 * shutdown
+	 * 
+	 * @param task
 	 */
-	public  void shutdown(){
-		threadPoolExecutor.shutdown();
+	public void executor(Runnable task){
+		threadPoolExecutor.execute(task);
 	}
 	
-	
-	
 	/**
-	 * 执行并返回结果
+	 * 带返回参数的提交任务
 	 * @param task
 	 * @return
 	 */
 	public <T> Future<T> submit(Callable<T> task){
 		return threadPoolExecutor.submit(task);
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public void shutdown(){
+		threadPoolExecutor.shutdown();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Runnable> shutdownNow(){
+		return threadPoolExecutor.shutdownNow();
 	}
 }

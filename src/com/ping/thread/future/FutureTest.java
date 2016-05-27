@@ -23,7 +23,6 @@ public class FutureTest {
 			Future<Integer> future =  executorService.submit(task);
 			System.out.println(future.get());
 		}
-		
 	}
 	
 	/**
