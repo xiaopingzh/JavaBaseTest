@@ -8,7 +8,7 @@ package com.ping.sort;
  */
 public class Sort {
 	//public static int a[]={49,38,65,97,76,13,27,49,78,34,12,64,5,4,62,99,98,54,56,17,18,23,34,15,35,25,53,51}; 
-	public static int a[] = {19,24,9,8,29,6,16};
+	public static int a[] = {12,19,24,9,8,29,6,16};
 	private static int[] xierb= {5,7,3,21,44,15,13,16,11,29,27};	//用于希尔排序的数组
 	
 	
