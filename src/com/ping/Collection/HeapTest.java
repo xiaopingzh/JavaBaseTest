@@ -1,12 +1,16 @@
 package com.ping.Collection;
 
-import java.util.Stack;
-
-
+/**
+ *
+ */
 public class HeapTest {
 	
 	
 	public void test01(){
 		
+	}
+
+	public static void main(String[] args){
+		new HeapTest().test01();
 	}
 }
