@@ -83,7 +83,4 @@ public class ThreadPoolInstance {
 	public <T> Future<T> submit(Callable<T> task){
 		return executor.submit(task);
 	}
-	
-	public void getThreadPoolInstance(){
-	}
 }
