@@ -17,8 +17,8 @@ public class MyThreadPoolExecutor extends ThreadPoolExecutor{
 	private static MyThreadPoolExecutor executor = new MyThreadPoolExecutor
 			(Runtime.getRuntime().availableProcessors(), 32, 3L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(1024));
 	
-	
-	public MyThreadPoolExecutor(int corePoolSize, int maximumPoolSize,
+
+	private MyThreadPoolExecutor(int corePoolSize, int maximumPoolSize,
 			long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
 		super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
 	}
@@ -40,27 +40,36 @@ public class MyThreadPoolExecutor extends ThreadPoolExecutor{
 	public void afterExecute(Runnable r, Throwable t) { 
 		System.currentTimeMillis();
 	}
-	
-	
-	public static void test01(){
+
+
+	/**
+	 * 执行一个线程
+	 */
+	public void test01(){
 		for(int i=0;i<10;i++){
-			Task task = new Task();
+			Task task = new Task("hello world");
 			executor.execute(task);
 		}
 		executor.shutdown();
 	}
 	
 	public static void main(String[] args){
-		test01();
+		executor.test01();
 	}
 	
 }
 
 
 class Task implements Runnable{
-	
+
+	private String name;
+
+	public Task(String name){
+		this.name = name;
+	}
+
 	@Override
 	public void run(){
-		System.out.println(Thread.currentThread().getName());
+		System.out.println(name  + " " + Thread.currentThread().getName());
 	}
 }
