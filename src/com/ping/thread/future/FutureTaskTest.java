@@ -13,9 +13,7 @@ public class FutureTaskTest {
 	public void test01(){
 		for(int i=0;i<5;i++){
 			MyTask mytask = new MyTask();
-			
-			FutureTask<String> myFuture = new FutureTask<>(mytask);
-//			MyFuture myFuture = new MyFuture(mytask);
+			FutureTask<String> myFuture = new FutureTask<String>(mytask);
 			executoService.submit(myFuture);
 			try {
 				System.out.println(myFuture.get());
@@ -60,7 +58,7 @@ class MyFuture extends FutureTask<String>{
 	public MyFuture(Callable<String> callable) {
 		super(callable);
 	}
-	
+
 	/**
 	 * 线程执行完后的调用
 	 */

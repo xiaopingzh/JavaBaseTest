@@ -71,6 +71,9 @@ public class FutureTest {
 	}
 }
 
+/**
+ * 创建Task
+ */
 class Task implements Callable<Integer>{
 	
 	@Override
