@@ -10,6 +10,7 @@ public class ProAndConsumer {
 	
 	
 	public void start() throws InterruptedException{
+		//创建线程并将其进入就绪状态
 		new Product().start();
 		Thread.sleep(100);
 		new Consumer().start();
