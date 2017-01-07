@@ -15,18 +15,22 @@ public class FutureTest {
 	
 	/**
 	 * 使用Future
+	 * 1）Future与实现Callable的线程配合使用
+	 * 2）获取返回结果使用executor.submit方法
+	 * 3) 实现Callable的线程不能使用executor.executor()方法
 	 * @throws Exception
 	 */
 	public void testFuture() throws Exception{
 		for(int i=0;i<5;i++){
-			Task task = new Task();
-			Future<Integer> future =  executorService.submit(task);
+			Future<Integer> future =  executorService.submit(new Task());
 			System.out.println(future.get());
 		}
 	}
 	
 	/**
 	 * 使用FutureTask
+	 * 1) FutureTask继承Runnable、Future，因此可以执行executor.submit与executor方法
+	 *
 	 * @throws Exception
 	 */
 	public void testFutureTask() throws Exception{
@@ -47,7 +51,10 @@ public class FutureTest {
 	}
 	
 	/**
-	 * 使用继承FutureTask
+	 * 使用继承FutureTask的线程
+	 * 1）可以使用FutureTask的protected方法
+	 *
+	 *
 	 * @throws Exception
 	 */
 	public void testFutureDone() throws Exception{
@@ -66,6 +73,7 @@ public class FutureTest {
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
+			//线程执行完毕后将线程池关闭
 			executorService.shutdown();
 		}
 	}
