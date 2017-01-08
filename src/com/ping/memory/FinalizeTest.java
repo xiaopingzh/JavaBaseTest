@@ -9,6 +9,7 @@ package com.ping.memory;
 public class FinalizeTest {
 	private static FinalizeTest SAVE_HOOK = null;
 
+
 	public void isAlive(){
 		System.out.println("is alive");
 	}
