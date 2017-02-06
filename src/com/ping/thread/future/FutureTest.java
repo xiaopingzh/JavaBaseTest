@@ -22,7 +22,7 @@ public class FutureTest {
 	 */
 	public void testFuture() throws Exception{
 		for(int i=0;i<5;i++){
-			Future<Integer> future =  executorService.submit(new Task());
+			Future<Integer> future =  executorService.submit(new Task("xiaoping"));
 			System.out.println(future.get());
 		}
 	}
@@ -36,7 +36,7 @@ public class FutureTest {
 	public void testFutureTask() throws Exception{
 		List<FutureTask<Integer>> list = new ArrayList<FutureTask<Integer>>();
 		for(int i=0;i<5;i++){
-			Task task = new Task();
+			Task task = new Task("xiaoping");
 			FutureTask<Integer> futureTask = new FutureTask<Integer>(task);
 			list.add(futureTask);
 			executorService.submit(futureTask);
@@ -59,7 +59,7 @@ public class FutureTest {
 	 */
 	public void testFutureDone() throws Exception{
 		for(int i=0;i<5;i++){
-			Task task = new Task();
+			Task task = new Task("xiaoping");
 			MyFutureTask futureTask = new MyFutureTask(task);
 			executorService.submit(futureTask);
 			System.out.println(futureTask.get());
@@ -83,9 +83,16 @@ public class FutureTest {
  * 创建Task
  */
 class Task implements Callable<Integer>{
-	
+
+	private String name;
+
+	public Task(String name){
+		this.name = name;
+	}
 	@Override
 	public Integer call(){
+		System.out.println(name);
+		//执行操作
 		return 10;
 	}
 }
