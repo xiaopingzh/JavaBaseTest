@@ -16,8 +16,11 @@ import java.util.concurrent.TimeUnit;
  * 2016年1月16日 下午3:24:03
  */
 public class ThreadPoolInstance {
-	
-	
+
+	/**
+	 * 使用volatile是为了防止指令重排，具体是用于threadPoolInstance = new ThreadPoolInstance()时
+	 * 即初始化对象与执行引用地址这两步
+	 */
 	private volatile static ThreadPoolInstance threadPoolInstance;
 	private static Object lock = new Object();
 	private ThreadPoolExecutor executor;
@@ -33,8 +36,12 @@ public class ThreadPoolInstance {
 			synchronized(lock){
 				if(threadPoolInstance == null){
 					threadPoolInstance = new ThreadPoolInstance();
-					threadPoolInstance.executor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(), 
-							maxPoolSize, 3L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(queenSize),Executors.defaultThreadFactory());
+					threadPoolInstance.executor = new ThreadPoolExecutor(
+							Runtime.getRuntime().availableProcessors(),
+							maxPoolSize,
+							3L, TimeUnit.MILLISECONDS,
+							new LinkedBlockingQueue<Runnable>(queenSize),
+							Executors.defaultThreadFactory());
 					threadPoolInstance.executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
 				}
 			}
@@ -68,7 +75,8 @@ public class ThreadPoolInstance {
 	}
 	
 	/**
-	 * 不再执行BlockQueue中的任务，返回BlockQueue中的未执行任务
+	 * 不再执行BlockQueue中的任务，并尝试终止线程池中的任务
+	 * 返回BlockQueue中的未执行任务
 	 * @return
 	 */
 	public List<Runnable> shutdownNow(){
