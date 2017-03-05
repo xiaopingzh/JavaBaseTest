@@ -30,7 +30,10 @@ public class MyThreadPoolExecutor extends ThreadPoolExecutor{
 	@Override
 	public void beforeExecute(Thread t, Runnable r) { 
 		//获取活动的线程数据/需要执行的任务数量
-		System.out.println(t.getName() + " " + executor.getActiveCount() + " " + executor.getTaskCount());
+		System.out.println(t.getName()
+				+ ", " + executor.getActiveCount()
+				+ "，" + executor.getTaskCount()
+		);
 	 }
 	
 	/**
@@ -52,24 +55,32 @@ public class MyThreadPoolExecutor extends ThreadPoolExecutor{
 		}
 		executor.shutdown();
 	}
-	
+
+
+	/**
+	 * 定义一个线程
+	 *
+	 */
+	private static class Task implements Runnable{
+		private String name;
+
+		Task(String name){
+
+			this.name = name;
+		}
+
+		@Override
+		public void run(){
+
+			System.out.println(name  + " " + Thread.currentThread().getName());
+		}
+	}
+
 	public static void main(String[] args){
+
 		executor.test01();
 	}
 	
 }
 
 
-class Task implements Runnable{
-
-	private String name;
-
-	public Task(String name){
-		this.name = name;
-	}
-
-	@Override
-	public void run(){
-		System.out.println(name  + " " + Thread.currentThread().getName());
-	}
-}
