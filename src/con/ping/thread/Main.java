@@ -25,8 +25,23 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+	/**
+	 *
+	 */
+	public void testMyThreadPoolExecutor(){
+		Future<String> future = MyThreadPoolExecutor.getInstance().submit(new TestCallable());
+		try {
+			System.out.println(future.get());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+
 
 	public static void main(String[] args){
 		System.out.println(Main.class.getClassLoader().toString());

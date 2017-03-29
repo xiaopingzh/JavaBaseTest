@@ -1,9 +1,6 @@
 package con.ping.thread;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * 自定义线程池处理器 implements ThreadPoolExecutor
@@ -28,7 +25,7 @@ public class MyThreadPoolExecutor extends ThreadPoolExecutor{
 	 * executor()方法执行前
 	 */
 	@Override
-	public void beforeExecute(Thread t, Runnable r) { 
+	public void beforeExecute(Thread t, Runnable r) {
 		//获取活动的线程数据/需要执行的任务数量
 		System.out.println(t.getName()
 				+ ", " + executor.getActiveCount()
@@ -45,42 +42,25 @@ public class MyThreadPoolExecutor extends ThreadPoolExecutor{
 	}
 
 
-	/**
-	 * 执行一个线程
-	 */
-	public void test01(){
-		for(int i=0;i<10;i++){
-			Task task = new Task("hello world");
-			executor.execute(task);
-		}
-		executor.shutdown();
+	@Override
+	public <T> RunnableFuture<T> newTaskFor(Runnable var1, T var2){
+		return new FutureTask(var1, var2);
+	}
+
+
+	@Override
+	public <T> RunnableFuture<T> newTaskFor(Callable<T> var1){
+		return new FutureTask<T>(var1);
 	}
 
 
 	/**
-	 * 定义一个线程
-	 *
+	 * 获取实例
+	 * @return
 	 */
-	private static class Task implements Runnable{
-		private String name;
-
-		Task(String name){
-
-			this.name = name;
-		}
-
-		@Override
-		public void run(){
-
-			System.out.println(name  + " " + Thread.currentThread().getName());
-		}
+	public static MyThreadPoolExecutor getInstance(){
+		return executor;
 	}
-
-	public static void main(String[] args){
-
-		executor.test01();
-	}
-	
 }
 
 
