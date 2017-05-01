@@ -32,7 +32,7 @@ public class ThreadPoolInstance {
 	
 	
 	public static ThreadPoolInstance getInstance(int maxPoolSize,int queenSize){
-		if(threadPoolInstance != null){
+		if(threadPoolInstance == null){
 			synchronized(lock){
 				if(threadPoolInstance == null){
 					threadPoolInstance = new ThreadPoolInstance();
@@ -66,7 +66,9 @@ public class ThreadPoolInstance {
 	public void execute(Runnable command){
 		executor.execute(command);
 	}
-	
+
+
+
 	/**
 	 * 不再接受新任务，等待线程池中的和队列中的任务执行完毕
 	 */

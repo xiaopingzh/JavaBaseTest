@@ -83,6 +83,10 @@ public class NewThreadTest {
         return executor.submit(task);
     }
 
+    public boolean isShutDown(){
+        return executor.isShutdown();
+    }
+
     public static void main(String[] args){
         System.out.print("hello world");
     }
