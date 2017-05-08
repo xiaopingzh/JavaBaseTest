@@ -2,6 +2,7 @@ package con.ping.thread;
 
 /**
  * Created by zhangxiaoping on 17/4/29.
+ * 测试死锁
  */
 public class TestDeadLock implements Runnable{
 
