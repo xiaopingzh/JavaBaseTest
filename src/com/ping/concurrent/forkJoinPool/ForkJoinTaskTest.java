@@ -10,12 +10,12 @@ import java.util.concurrent.RecursiveTask;
  * 将大人物分隔成多个小任务，最后汇总每个小任务结果后获取得到大任务结果的框架
  * 可以理解为分布式计算的一种
  * 从1~100累加求和
- * @author 
+ * @author
  *
  * 2016年3月29日 上午10:39:13
  */
 public class ForkJoinTaskTest extends RecursiveTask<Integer>{
-	
+
 	private static final long serialVersionUID = 1L;
 	//阈值，即每个线程计算的区间<=10
 	private static final int THRESHLOD = 10;
@@ -23,7 +23,7 @@ public class ForkJoinTaskTest extends RecursiveTask<Integer>{
 	private int end;
 	//创建ForkJoinPool
 	private static ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
-	
+
 	public ForkJoinTaskTest(int start,int end){
 		this.start = start;
 		this.end = end;
@@ -54,7 +54,7 @@ public class ForkJoinTaskTest extends RecursiveTask<Integer>{
 		return sum;
 	}
 
-	
+
 	public static void main(String[] args){
 		//创建一个计算任务 1~100
 		ForkJoinTaskTest forkJoinPoolTest = new ForkJoinTaskTest(1, 100);
