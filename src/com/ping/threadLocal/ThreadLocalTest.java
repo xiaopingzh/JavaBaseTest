@@ -15,11 +15,16 @@ public class ThreadLocalTest implements Runnable{
 	
 	@Override
 	public void run(){
-		System.out.println(threadLocal.get());
+		System.out.println(Thread.currentThread().getName() + " :" + threadLocal.get());
 		threadLocal.set("aa");
+		System.out.println(Thread.currentThread().getName() + " :" + threadLocal.get());
+
+
 		//替换value="aa"
 		threadLocal.set(Thread.currentThread().getName());
-		System.out.println(threadLocal.get());
+		System.out.println(Thread.currentThread().getName() + " :" + threadLocal.get());
+
+		//threadLocal.remove();
 	}
 	
 	public static void main(String[] args){
@@ -27,7 +32,11 @@ public class ThreadLocalTest implements Runnable{
 		for(int i=0;i<2;i++){
 			new Thread(new ThreadLocalTest()).start();
 		}
-		System.out.println(threadLocal.get());
+
+		Thread thread = Thread.currentThread();
+		System.out.println(Thread.currentThread().getName() + " :" + threadLocal.get());
+
+
 	}
 }
 
