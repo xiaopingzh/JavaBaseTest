@@ -6,6 +6,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
+/**
+ * 测试Callable、FutureTask
+ */
 public class FutureTaskTest {
 	
 	private static ExecutorService executoService = Executors.newFixedThreadPool(5);
@@ -16,6 +19,7 @@ public class FutureTaskTest {
 			FutureTask<String> myFuture = new FutureTask<String>(mytask);
 			executoService.submit(myFuture);
 			try {
+				//调用线程阻塞
 				System.out.println(myFuture.get());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -43,27 +47,5 @@ class MyTask implements Callable<String>{
 	@Override
 	public String call(){
 		return Thread.currentThread().getName();
-	}
-}
-
-
-/**
- * 
- * @author 
- *
- * 2016年3月9日 下午11:10:08
- */
-class MyFuture extends FutureTask<String>{
-
-	public MyFuture(Callable<String> callable) {
-		super(callable);
-	}
-
-	/**
-	 * 线程执行完后的调用
-	 */
-	@Override
-	public void done(){
-		System.out.println(Thread.currentThread().getName());
 	}
 }

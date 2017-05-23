@@ -97,6 +97,9 @@ class Task implements Callable<Integer>{
 	}
 }
 
+/**
+ * 创建FutureTask
+ */
 class MyFutureTask extends FutureTask<Integer>{
 
 	public MyFutureTask(Callable<Integer> callable) {
