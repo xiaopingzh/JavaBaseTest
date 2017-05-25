@@ -1,5 +1,8 @@
 package com.ping.hash;
 
+/**
+ * 单链表的翻转
+ */
 public class LinkedTest {
 
 	/**
