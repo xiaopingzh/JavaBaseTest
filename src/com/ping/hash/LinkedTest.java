@@ -1,7 +1,7 @@
 package com.ping.hash;
 
 public class LinkedTest {
-	
+
 	/**
 	 * 遍历实现
 	 * @param head
@@ -60,11 +60,42 @@ public class LinkedTest {
 		head.next = last;
 		return p;
 	}
+
+	/**
+	 * 判断链表是否有环
+	 * @return
+	 */
+	public boolean hasLoop(Node head){
+
+		if(head == null || head.next == null || head.next.next == null){
+			return false;
+		}
+		Node node1 = head.next;
+		Node node2 = head.next.next;
+		while(node1 != node2){
+
+			if(node2.next == null || node2.next.next == null){
+				return  false;
+			}
+			node1 = node1.next;
+			node2 = node2.next.next;
+		}
+		return true;
+	}
 	
-	
-	
-	
-	
+
+	public void createLoopList(){
+		Node node1 = new Node("1");
+		Node node2 = new Node("2");Node node3 = new Node("3");Node node4 = new Node("4");
+		Node node5 = new Node("5");
+		node5.next = node2;
+
+
+
+	}
+
+
+
 	public static void main(String[] args){
 		
 	}
@@ -83,7 +114,12 @@ class Node{
 	public String value;
 	
 	public Node next;
-	
+
+	public Node(String value){
+		this.value = value;
+	}
+
+
 	public Node(String value,Node next){
 		this.value = value;
 		this.next = next;
