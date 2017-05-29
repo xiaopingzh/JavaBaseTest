@@ -13,16 +13,6 @@ import java.lang.reflect.Proxy;
 public class BookProxy implements InvocationHandler{
 	
 	private Object target;
-	
-	/**
-	 * 根据接口创建动态代理类
-	 * @param type
-	 * @return
-	 */
-	public Object getProxy(Class<?> type){
-		return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[] { type }, this);
-	}
-	
 	/**
 	 * 
 	 * @param target
@@ -33,10 +23,6 @@ public class BookProxy implements InvocationHandler{
 		return Proxy.newProxyInstance(target.getClass().getClassLoader(),target.getClass().getInterfaces(), this);
 	}
 	
-	
-	/**
-	 * 
-	 */
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
@@ -49,5 +35,15 @@ public class BookProxy implements InvocationHandler{
 		 */
 		Object result = method.invoke(target, args);
 		return result;
+	}
+
+
+	/**
+	 * 根据接口创建动态代理类
+	 * @param type
+	 * @return
+	 */
+	public Object getProxy(Class<?> type){
+		return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[] { type }, this);
 	}
 }

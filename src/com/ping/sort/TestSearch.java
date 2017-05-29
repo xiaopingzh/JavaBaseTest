@@ -11,13 +11,12 @@ import java.util.Arrays;
 public class TestSearch {
 	
 	//实现n的阶乘
-//	public int test01(int m){
-//		Class<com.ping.search.TestSearch> theclass = TestSearch.class;
-//		if(m==1){
-//			return m;
-//		}
-//		return m*test01(m-1);
-//	}
+	public int test01(int m){
+		if(m==1){
+			return m;
+		}
+		return m*test01(m-1);
+	}
 	
 	
 	Integer[] in = {1,2,3,5,6,7,8,9,10,11};
@@ -107,7 +106,9 @@ public class TestSearch {
 	
 	
 	public static void main(String[] args){
-//		TestSearch test = new TestSearch();
-		System.out.println(15>>1);
+		TestSearch test = new TestSearch();
+		System.out.println(test.test01(10));
+//		System.out.println(15>>1);
+
 	}
 }

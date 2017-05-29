@@ -6,56 +6,58 @@
 //import java.lang.reflect.Proxy;
 //import java.text.DecimalFormat;
 //
-////import javassist.ClassPool;
-////import javassist.CtClass;
-////import javassist.CtField;
-////import javassist.CtNewConstructor;
-////import javassist.CtNewMethod;
-////import javassist.util.proxy.MethodHandler;
-////import javassist.util.proxy.ProxyFactory;
-////import javassist.util.proxy.ProxyObject;
-////import net.sf.cglib.proxy.Enhancer;
-////import net.sf.cglib.proxy.MethodInterceptor;
-////import net.sf.cglib.proxy.MethodProxy;
-////
-////import org.objectweb.asm.ClassWriter;
-////import org.objectweb.asm.FieldVisitor;
-////import org.objectweb.asm.MethodVisitor;
-////import org.objectweb.asm.Opcodes;
+//import javassist.ClassPool;
+//import javassist.CtClass;
+//import javassist.CtField;
+//import javassist.CtNewConstructor;
+//import javassist.CtNewMethod;
+//import javassist.util.proxy.MethodHandler;
+//import javassist.util.proxy.ProxyFactory;
+//import javassist.util.proxy.ProxyObject;
+//import net.sf.cglib.proxy.Enhancer;
+//import net.sf.cglib.proxy.MethodInterceptor;
+//import net.sf.cglib.proxy.MethodProxy;
 //
-
-//动态代理性能分析
+//import org.objectweb.asm.ClassWriter;
+//import org.objectweb.asm.FieldVisitor;
+//import org.objectweb.asm.MethodVisitor;
+//import org.objectweb.asm.Opcodes;
+//
+///**
+// *
+// 动态代理性能分析
+// */
 //public class DynamicProxyPerformanceTest {
 //
 //	public static void main(String[] args) throws Exception {
 //		BookFacade delegate = new BookFacadeImpl();
-//		
+//
 //		long time = System.currentTimeMillis();
 //		BookFacade jdkProxy = createJdkDynamicProxy(delegate);
 //		time = System.currentTimeMillis() - time;
 //		System.out.println("Create JDK Proxy: " + time + " ms");
-//		
+//
 //		time = System.currentTimeMillis();
 //		BookFacade cglibProxy = createCglibDynamicProxy(delegate);
 //		time = System.currentTimeMillis() - time;
 //		System.out.println("Create CGLIB Proxy: " + time + " ms");
-//		
+//
 //		time = System.currentTimeMillis();
 //		BookFacade javassistProxy = createJavassistDynamicProxy(delegate);
 //		time = System.currentTimeMillis() - time;
 //		System.out.println("Create JAVAASSIST Proxy: " + time + " ms");
-//		
+//
 //		time = System.currentTimeMillis();
 //		BookFacade javassistBytecodeProxy = createJavassistBytecodeDynamicProxy(delegate);
 //		time = System.currentTimeMillis() - time;
 //		System.out.println("Create JAVAASSIST Bytecode Proxy: " + time + " ms");
-//		
+//
 //		time = System.currentTimeMillis();
 //		BookFacade asmBytecodeProxy = createAsmBytecodeDynamicProxy(delegate);
 //		time = System.currentTimeMillis() - time;
 //		System.out.println("Create ASM Proxy: " + time + " ms");
 //		System.out.println("================");
-//		
+//
 //		for (int i = 0; i &lt; 3; i++) {
 //			test(jdkProxy, "Run JDK Proxy: ");
 //			test(cglibProxy, "Run CGLIB Proxy: ");
@@ -83,7 +85,7 @@
 //				new Class[] { BookFacade.class }, new JdkHandler(delegate));
 //		return jdkProxy;
 //	}
-//	
+//
 //	private static class JdkHandler implements InvocationHandler {
 //
 //		final Object delegate;
@@ -107,7 +109,7 @@
 //	}
 //
 //	private static class CglibInterceptor implements MethodInterceptor {
-//		
+//
 //		final Object delegate;
 //
 //		CglibInterceptor(Object delegate) {
@@ -156,14 +158,14 @@
 //		filed.set(bytecodeProxy, delegate);
 //		return bytecodeProxy;
 //	}
-//	
+//
 //	private static BookFacade createAsmBytecodeDynamicProxy(BookFacade delegate) throws Exception {
 //		ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 //		String className = BookFacade.class.getName() +  "AsmProxy";
 //		String classPath = className.replace('.', '/');
 //		String interfacePath = BookFacade.class.getName().replace('.', '/');
 //		classWriter.visit(Opcodes.V1_5, Opcodes.ACC_PUBLIC, classPath, null, "java/lang/Object", new String[] {interfacePath});
-//		
+//
 //		MethodVisitor initVisitor = classWriter.visitMethod(Opcodes.ACC_PUBLIC, "&lt;init&gt;", "()V", null, null);
 //		initVisitor.visitCode();
 //		initVisitor.visitVarInsn(Opcodes.ALOAD, 0);
@@ -171,10 +173,10 @@
 //		initVisitor.visitInsn(Opcodes.RETURN);
 //		initVisitor.visitMaxs(0, 0);
 //		initVisitor.visitEnd();
-//		
+//
 //		FieldVisitor fieldVisitor = classWriter.visitField(Opcodes.ACC_PUBLIC, "delegate", "L" + interfacePath + ";", null, null);
 //		fieldVisitor.visitEnd();
-//		
+//
 //		MethodVisitor methodVisitor = classWriter.visitMethod(Opcodes.ACC_PUBLIC, "count", "()I", null, null);
 //		methodVisitor.visitCode();
 //		methodVisitor.visitVarInsn(Opcodes.ALOAD, 0);
@@ -183,7 +185,7 @@
 //		methodVisitor.visitInsn(Opcodes.IRETURN);
 //		methodVisitor.visitMaxs(0, 0);
 //		methodVisitor.visitEnd();
-//		
+//
 //		classWriter.visitEnd();
 //		byte[] code = classWriter.toByteArray();
 //		BookFacade bytecodeProxy = (BookFacade) new ByteArrayClassLoader().getClass(className, code).newInstance();
@@ -191,7 +193,7 @@
 //		filed.set(bytecodeProxy, delegate);
 //		return bytecodeProxy;
 //	}
-//	
+//
 //	private static class ByteArrayClassLoader extends ClassLoader {
 //
 //		public ByteArrayClassLoader() {

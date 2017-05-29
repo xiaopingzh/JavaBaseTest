@@ -7,10 +7,11 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.*;
-import java.util.concurrent.locks.ReentrantLock;
 
-
+/**
+ * MapTest
+ *
+ */
 public class MapTest{
 	
 	public static HashMap<String,String> map = new HashMap<String,String>();
@@ -28,9 +29,6 @@ public class MapTest{
 	public void testMap(){
 		
 //		HashMap<String,String> mymap = new HashMap<String,String>(1);
-		
-		
-		
 		StringBuffer str = new StringBuffer();
 		
 		Iterator<Map.Entry<String, String>> iterator = map.entrySet().iterator();
@@ -60,7 +58,6 @@ public class MapTest{
 		}
 	
 		System.out.println(key);
-	
 	}
 	
 	
@@ -87,7 +84,12 @@ public class MapTest{
 	
 	
 	final int cacheCount = 100;
-	
+
+
+	/**
+	 * LinkedHashMap
+	 *
+	 */
 	public void testLinkedHashMap(){
 		//第三个参数false，表示按照顺序存储，true表示使用LRU算法，将刚获取的放到线性表尾
 		LinkedHashMap<String,String> linkedHashMap = new LinkedHashMap<String,String>(16, 0.75f, true){
@@ -106,20 +108,37 @@ public class MapTest{
 		}
 		
 		
-	
 		linkedHashMap.put("10", "value");
-//		System.out.println(linkedHashMap.size());
-		
 		for(String key:linkedHashMap.keySet()){
 			System.out.println(key);
 		}
 
 	}
-	
-	
-	
+
+	/**
+	 * 测试JDK1.8 HashMap
+	 */
+	public void testJDK8HashMap(){
+
+		HashMap<String,String> map = new HashMap<String,String>();
+	}
+
+
+	static final int MAXIMUM_CAPACITY = 1 << 30;
+
+	static final int tableSizeFor(int cap) {
+		int n = cap - 1;
+		n |= n >>> 1;
+		n |= n >>> 2;
+		n |= n >>> 4;
+		n |= n >>> 8;
+		n |= n >>> 16;
+		return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+	}
+
+
 	public static void main(String[] args){
-		new MapTest().treeMapTest();
+		System.out.println(tableSizeFor(7));
 	}
 	
 }

@@ -3,11 +3,12 @@ package com.ping.loadBalancing;
 /**
  * Created by zhangxiaoping on 17/5/3.
  */
-        import java.math.BigInteger;
-        import java.util.ArrayList;
-        import java.util.List;
-        import java.util.concurrent.BrokenBarrierException;
-        import java.util.concurrent.CyclicBarrier;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 public class WeightRoundRobin {
     private List<Server> servers;
@@ -19,7 +20,7 @@ public class WeightRoundRobin {
     private int gcdWeight;
 
     public WeightRoundRobin() {
-        servers = new ArrayList<>();
+        servers = new ArrayList<Server>();
         servers.add(new Server("192.168.1.2", 5));
         servers.add(new Server("192.168.1.3", 10));
         servers.add(new Server("192.168.1.4", 15));
@@ -40,13 +41,13 @@ public class WeightRoundRobin {
                 currentWeight = currentWeight - gcdWeight;
                 if (currentWeight <= 0) {
                     currentWeight = maxWeight;
-                    if(currentWeight == 0) {
+                    if (currentWeight == 0) {
                         return null;
                     }
                 }
             }
 
-            if(servers.get(currentIndex).getWeight() >= currentWeight) {
+            if (servers.get(currentIndex).getWeight() >= currentWeight) {
                 return servers.get(currentIndex);
             }
         }
@@ -119,7 +120,9 @@ public class WeightRoundRobin {
                     try {
                         b.await();
                         System.out.println(Thread.currentThread().getName() + " " + wr.round());
-                    } catch (InterruptedException | BrokenBarrierException e) {
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (BrokenBarrierException e) {
                         e.printStackTrace();
                     }
                 }

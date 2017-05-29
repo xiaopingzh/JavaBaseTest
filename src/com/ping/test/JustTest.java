@@ -30,23 +30,23 @@ public class JustTest<T> implements Comparator<T>{
 	}
 	
 	public static void main(String[] args){
-		try {
-			new JustTest<>().testClone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		int num = 20195;
-		System.out.println((char)num );
-		
-		int b = 97;
-		byte ss = (byte)b;
-		System.out.println(ss);
-		
-		
-		byte bb = 'a';
-		System.out.println((int)bb);
+//		try {
+//			new JustTest<>().testClone();
+//		} catch (CloneNotSupportedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		int num = 20195;
+//		System.out.println((char)num );
+//
+//		int b = 97;
+//		byte ss = (byte)b;
+//		System.out.println(ss);
+//
+//
+//		byte bb = 'a';
+//		System.out.println((int)bb);
 	}
 	
 	

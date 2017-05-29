@@ -14,7 +14,6 @@ public class ThreadTets implements Callable<Integer>{
 	@Override
 	public Integer call(){
 		System.out.println(Thread.currentThread().getId());
-		
         int sum = 0;
         for(int i=0;i<100;i++)
             sum += i;

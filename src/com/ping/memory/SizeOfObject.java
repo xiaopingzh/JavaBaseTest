@@ -34,7 +34,7 @@ public class SizeOfObject extends SizeOf {
 		
 		
 //		return new Long[3];
-//		return new Long[10]; // 16 + 10*4byte + 4byte() = 56byte
+//		return new Long[10]; // 16 + 10*4byte  = 56byte
 		
 	}
 

@@ -148,10 +148,25 @@ public class StringTest {
         Integer e = 129;
         System.out.println(d == e);  //false
 	}
-	
+
+
+	public void testSubString(){
+		System.out.println("abcde".substring(2,1));
+
+
+	}
+
+
+
+	public static int a;
+	static{
+		a = 4;
+	}
 	public static void main(String[] args){
-		new StringTest().test11();
-//		System.out.println(mymap.size());
-		
+//		System.out.println( (1 << 16) - 1);
+
+
+		System.out.println(2 & 4);
+
 	}
 }
