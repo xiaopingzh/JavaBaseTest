@@ -19,10 +19,6 @@ public class LockWaitAndNotifyTest {
     private static final ReentrantLock putLock = new ReentrantLock();
     public Condition putCondition = putLock.newCondition();
 
-
-
-
-
     class Producer implements Runnable{
         @Override
         public void run() {
