@@ -1,6 +1,7 @@
 package com.ping.pattern.chain;
 
 /**
+ * 责任链关键抽象类
  * Author:zhangxiaoping
  * Date:2019/2/21
  * Time:下午8:00
